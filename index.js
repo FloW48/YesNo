@@ -11,7 +11,7 @@ bot.on('ready', function(){
 })
 
 bot.on('message', function (message){
-    if(botOn && !pauseBot && message.member != null && !(message.member._roles.indexOf('699584627324485642') >= 0)){
+    if(botOn && !pauseBot && message.channel.id == "666563454517248006"){
         checkMessage(message)
     }
     changeState(message)
