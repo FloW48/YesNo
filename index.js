@@ -1,9 +1,12 @@
 const Discord = require('discord.js');
 const bot = new Discord.Client();
 
+var users = {}
+
 var bannedWords = ["oui", "non"]
 var botOn = true
 var pauseBot = false
+var timeout = 10000;
 
 bot.on('ready', function(){
     let isOn =  botOn ? 'on' : 'off'
@@ -38,9 +41,13 @@ async function goulag(message){
     let role = await message.guild.roles.cache.find(r => r.name == 'Goulag');
     console.log(role)
     member.roles.add(role)
+    if(users[message.author.id] == undefined){
+        users[message.author.id] = 0
+    }
+    users[message.author.id] += timeout/1000
     setTimeout(function() {
         member.roles.remove(role)
-    }, 10000)
+    }, timeout)
 }
 
 function commands(message){
@@ -74,6 +81,28 @@ function commands(message){
         ">>> • nion on/off\n"+
         " • nion ban/unban `word`")
         message.channel.send(embed);
+    }
+    else if(message.content.startsWith("nion mytime")){
+        if(args.length == 2){
+            if(users[message.author.id] == undefined){
+                message.channel.send("<@"+message.author.id+">, vous n'avez jamais été goulag, gg à vous")
+            }
+            else{
+                message.channel.send("<@"+message.author.id+">, vous avez été goulag "+users[message.author.id]+" secondes");
+            }
+        }
+        else{
+            console.log(args)
+            let argsMsg = args[3].split(/[<@>]/);
+            let id = argsMsg[0];
+            console.log(argsMsg)
+            if(users[id] == undefined){
+                message.channel.send("<@"+id+">, n'a jamais été goulag, gg à lui");
+            }
+            else{
+                message.channel.send("<@"+id+">, a été goulag "+users[id]+" secondes");
+            }
+        }
     }
     if(  (message.member != null && message.member.hasPermission("ADMINISTRATOR")) || message.author.id == 256054054260572161 ){
         if(message.content.startsWith("nion on")){
