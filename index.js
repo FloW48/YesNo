@@ -112,7 +112,7 @@ async function commands(message){
             let id = argsMsg[0];
             let user = findUser(id)
             if(user == undefined){
-                message.channel.send("<@"+id+">, n'a jamais été goulag, gg à lui");
+                message.channel.send("<@"+id+">, n'a jamais été goulag, gg à lui/elle");
             }
             else{
                 message.channel.send("<@"+id+">, a été goulag "+user.time+" secondes");
@@ -135,7 +135,7 @@ async function commands(message){
             message.channel.send(embed);
         }
         else{
-            for(var i = 0; i < 10; i++){
+            for(var i = 0; users.length && i < 10; i++){
                 await bot.guilds.fetch("626684559345451010").then(function(guild){
                     guild.members.fetch(users[i].id.toString()).then(function(member){
                         userName = member.displayName;
