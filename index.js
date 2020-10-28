@@ -135,7 +135,7 @@ async function commands(message){
             message.channel.send(embed);
         }
         else{
-            for(var i = 0; users.length && i < 10; i++){
+            for(var i = 0; i < users.length && i < 10; i++){
                 await bot.guilds.fetch("626684559345451010").then(function(guild){
                     guild.members.fetch(users[i].id.toString()).then(function(member){
                         userName = member.displayName;
