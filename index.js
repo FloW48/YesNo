@@ -20,7 +20,7 @@ bot.on('message', function(message){
     commands(message)
 })
 
-bot.login('NzYxNTA4NTQyOTUxMTk0NjQ2.X3boGA.cjJic_A6XM0R7GlJ2FnTbSrHKYg')
+bot.login('tauken')
     .catch(console.error);
 
 
